@@ -171,7 +171,7 @@ local plugin_specs = {
 
 	{
 		"nvim-lualine/lualine.nvim",
-		event = "BufEnter",
+		event = "BufRead",
 		config = function()
 			require("config.lualine")
 		end,
