@@ -284,10 +284,10 @@ local plugin_specs = {
 	-- Manage your yank history
 	{
 		"gbprod/yanky.nvim",
+		event = "BufEnter",
 		config = function()
 			require("config.yanky")
 		end,
-		event = "VeryLazy",
 	},
 
 	-- Handy unix command inside Vim (Rename, Move etc.)
@@ -328,6 +328,7 @@ local plugin_specs = {
 	-- Show git change (change, delete, add) signs in vim sign column
 	{
 		"lewis6991/gitsigns.nvim",
+		event = { "BufRead" },
 		config = function()
 			require("config.gitsigns")
 		end,
@@ -386,14 +387,14 @@ local plugin_specs = {
 	{ "tpope/vim-scriptease", cmd = { "Scriptnames", "Messages", "Verbose" } },
 
 	-- Asynchronous command execution
-	{ "skywind3000/asyncrun.vim", lazy = false, cmd = { "AsyncRun" } },
+	{ "skywind3000/asyncrun.vim", cmd = { "AsyncRun" } },
 	{ "cespare/vim-toml", ft = { "toml" }, branch = "main" },
 
 	-- Debugger plugin
 	{
 		"sakhnik/nvim-gdb",
 		build = { "bash install.sh" },
-		event = "VeryLazy",
+		ft = { "c", "cpp" },
 	},
 
 	{
@@ -402,7 +403,7 @@ local plugin_specs = {
 	},
 
 	-- Session management plugin
-	{ "tpope/vim-obsession", lazy = true, cmd = "Obsession" },
+	{ "tpope/vim-obsession", cmd = "Obsession" },
 
 	{
 		"folke/zen-mode.nvim",
@@ -511,8 +512,12 @@ local plugin_specs = {
 	{
 		"weirongxu/plantuml-previewer.vim",
 		ft = { "puml", "pu", "uml", "iuml", "plantuml" },
-		event = "VeryLazy",
-		dependencies = { "aklt/plantuml-syntax", "tyru/open-browser.vim" },
+		dependencies = "tyru/open-browser.vim",
+	},
+
+	{
+		"aklt/plantuml-syntax",
+		ft = { "puml", "pu", "uml", "iuml", "plantuml" },
 	},
 
 	{
