@@ -90,6 +90,7 @@ local enabled_lsp_servers = {
 	ltex = "ltex-ls",
 	clangd = "clangd",
 	vimls = "vim-language-server",
+	jdtls = "jdtls",
 	-- bashls = "bash-language-server",
 }
 

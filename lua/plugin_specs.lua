@@ -142,6 +142,7 @@ local plugin_specs = {
 	},
 	{
 		"ibhagwan/fzf-lua",
+		event = "BufReadPre",
 		-- optional for icon support
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
@@ -170,7 +171,7 @@ local plugin_specs = {
 
 	{
 		"nvim-lualine/lualine.nvim",
-		event = "VeryLazy",
+		event = "BufEnter",
 		config = function()
 			require("config.lualine")
 		end,
@@ -455,6 +456,8 @@ local plugin_specs = {
 	{
 		"ms-jpq/chadtree",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+		lazy = true,
+		cmd = "CHADopen",
 		config = function()
 			require("config.chadtree")
 		end,

@@ -3,6 +3,16 @@ local api = vim.api
 
 local utils = require("utils")
 
+-----Functions that create autocommands helpers into the `UserCustomAutocmds` group.
+-----@class UtilsAutoCmds
+-----@field group_id integer Group `UserCustomAutocmds` id
+--local Autocmds = {
+--	group_id = api.nvim_create_augroup("UserUtilsCustomAutocmds", { clear = true }),
+--}
+
+-----@class UtilsPlugins
+--local Plugins = {}
+
 -- Display a message when the current file is not in utf-8 format.
 -- Note that we need to use `unsilent` command here because of this issue:
 -- https://github.com/vim/vim/issues/4379
