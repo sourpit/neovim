@@ -257,7 +257,28 @@ keymap.set("n", "<leader>V", "<cmd>CHADopen<CR>", {
 	desc = "Open chadtree",
 })
 
--- Fzflua
+-- Fzflua menu
 keymap.set("n", [[\t]], "<cmd>FzfLua<CR>", {
 	desc = "Open fzf menu",
+})
+
+-- Fzflua buffer
+keymap.set("n", "<c-\\>", "<cmd>FzfLua buffers<CR>", {
+	desc = "search buffers with fzf",
+})
+
+keymap.set("n", "<c-g>", "<cmd>FzfLua grep<CR>", {
+	desc = "search code with grep",
+})
+
+keymap.set("n", "<c-k>", "<cmd>FzfLua builtin<CR>", {
+	desc = "search command with fzf",
+})
+
+keymap.set("n", "<c-p>", "<cmd>FzfLua files<CR>", {
+	desc = "search files with fzf",
+})
+
+keymap.set("n", "<c-l>", "<cmd>FzfLua live_grep<CR>", {
+	desc = "Live grep",
 })
