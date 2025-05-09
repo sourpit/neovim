@@ -142,7 +142,7 @@ local plugin_specs = {
 	},
 	{
 		"ibhagwan/fzf-lua",
-		event = "BufReadPre",
+		cmd = "FzfLua",
 		-- optional for icon support
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
@@ -171,7 +171,7 @@ local plugin_specs = {
 
 	{
 		"nvim-lualine/lualine.nvim",
-		event = "BufRead",
+		event = "BufEnter",
 		config = function()
 			require("config.lualine")
 		end,

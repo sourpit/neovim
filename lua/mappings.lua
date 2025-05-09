@@ -251,3 +251,13 @@ end, { desc = "show cursor" })
 keymap.set("n", "<space>bp", "<cmd>BufferLinePick<CR>", {
 	desc = "pick a buffer",
 })
+
+-- Chadtree
+keymap.set("n", "<leader>V", "<cmd>CHADopen<CR>", {
+	desc = "Open chadtree",
+})
+
+-- Fzflua
+keymap.set("n", [[\t]], "<cmd>FzfLua<CR>", {
+	desc = "Open fzf menu",
+})
