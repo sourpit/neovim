@@ -173,12 +173,6 @@ api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, 
 	end,
 })
 
--- api.nvim_create_autocmd("BufLeave", {
--- 	group = api.nvim_create_augroup("exit_directory", {clear = true}),
---   pattern = "*",
---   desc = "Delete buffer if its only directory",
--- })
-
 api.nvim_create_autocmd("ColorScheme", {
 	group = api.nvim_create_augroup("custom_highlight", { clear = true }),
 	pattern = "*",

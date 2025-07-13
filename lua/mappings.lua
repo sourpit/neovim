@@ -275,7 +275,7 @@ keymap.set("n", "<c-k>", "<cmd>FzfLua builtin<CR>", {
 	desc = "search command with fzf",
 })
 
-keymap.set("n", "<c-p>", "<cmd>FzfLua files<CR>", {
+keymap.set("n", "<leader>a", "<cmd>FzfLua files<CR>", {
 	desc = "search files with fzf",
 })
 

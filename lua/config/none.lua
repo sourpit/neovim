@@ -43,6 +43,8 @@ local sources = {
 	null_ls.builtins.formatting.stylua,
 	--- asm Formatter
 	null_ls.builtins.formatting.asmfmt,
+	--- sh Formatter
+	null_ls.builtins.formatting.shfmt,
 }
 
 null_ls.setup({

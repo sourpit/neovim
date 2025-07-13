@@ -25,10 +25,6 @@ local plugin_specs = {
 			require("config.neorg")
 		end,
 	},
-	{ -- Go debugger with delve
-		"sebdah/vim-delve",
-		ft = { "go" },
-	},
 	{ -- auto-completion engine
 		"hrsh7th/nvim-cmp",
 		name = "nvim-cmp",
@@ -284,7 +280,7 @@ local plugin_specs = {
 	-- Manage your yank history
 	{
 		"gbprod/yanky.nvim",
-		event = "BufEnter",
+		event = "VeryLazy",
 		config = function()
 			require("config.yanky")
 		end,
@@ -478,13 +474,6 @@ local plugin_specs = {
 		end,
 		cmd = "Vista",
 	},
-
-	{
-		-- w3m integration
-		"yuratomo/w3m.vim",
-		cmd = "W3",
-	},
-
 	{
 		"j-hui/fidget.nvim",
 		event = "VeryLazy",
