@@ -226,6 +226,15 @@ local plugin_specs = {
     config = true,
   },
 
+  {
+    "sontungexpt/sttusline",
+    branch = "table_version",
+    event = { "BufEnter" },
+    config = function()
+      require("config.sttusline")
+    end,
+  },
+
   -- vim startuptime
   {
     "dstein64/vim-startuptime",
@@ -400,6 +409,7 @@ local plugin_specs = {
       },
       -- more beautiful vim.ui.select
       picker = { enabled = true },
+      dashboard = { enabled = true },
     },
   },
 
