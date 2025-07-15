@@ -204,9 +204,8 @@ local plugin_specs = {
     init = function()
       vim.g.netrw_nogx = 1 -- disable netrw gx
     end,
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = true,      -- default settings
-    submodules = false, -- not needed, submodules are required only for tests
+    config = true,         -- default settings
+    submodules = false,    -- not needed, submodules are required only for tests
   },
 
   -- Snippet engine and snippet template
@@ -229,10 +228,15 @@ local plugin_specs = {
   {
     "sontungexpt/sttusline",
     branch = "table_version",
-    event = { "BufEnter" },
+    event = "BufEnter",
     config = function()
       require("config.sttusline")
     end,
+  },
+
+  {
+    "ap/vim-buftabline",
+    event = "BufEnter",
   },
 
   -- vim startuptime
@@ -415,16 +419,6 @@ local plugin_specs = {
 
   -- show and trim trailing whitespaces
   { "jdhao/whitespace.nvim", event = "VeryLazy" },
-
-  -- -- file explorer
-  -- {
-  -- 	"nvim-tree/nvim-tree.lua",
-  -- 	event = "VeryLazy",
-  -- 	dependencies = { "nvim-tree/nvim-web-devicons" },
-  -- 	config = function()
-  -- 		require("config.nvim-tree")
-  -- 	end,
-  -- },
 
   -- better file explorer
   {

@@ -3,16 +3,6 @@ local api = vim.api
 
 local utils = require("utils")
 
------Functions that create autocommands helpers into the `UserCustomAutocmds` group.
------@class UtilsAutoCmds
------@field group_id integer Group `UserCustomAutocmds` id
---local Autocmds = {
---	group_id = api.nvim_create_augroup("UserUtilsCustomAutocmds", { clear = true }),
---}
-
------@class UtilsPlugins
---local Plugins = {}
-
 -- Display a message when the current file is not in utf-8 format.
 -- Note that we need to use `unsilent` command here because of this issue:
 -- https://github.com/vim/vim/issues/4379
@@ -32,8 +22,7 @@ api.nvim_create_autocmd({ "TextYankPost" }, {
   pattern = "*",
   group = yank_group,
   callback = function()
-    vim.highlight.on_yank({ higroup = "YankColor", timeout = 300 })
-    vim.highlight.on_yank()
+    vim.hl.on_yank { higroup = "YankColor", timeout = 300 }
   end,
 })
 
@@ -48,7 +37,8 @@ api.nvim_create_autocmd({ "CursorMoved" }, {
 api.nvim_create_autocmd("TextYankPost", {
   pattern = "*",
   group = yank_group,
-  callback = function(ev)
+  ---@diagnostic disable-next-line: unused-local
+  callback = function(context)
     if vim.v.event.operator == "y" then
       vim.fn.setpos(".", vim.g.current_cursor_pos)
     end
@@ -95,36 +85,26 @@ api.nvim_create_autocmd("VimResized", {
   command = "wincmd =",
 })
 
--- local function open_nvim_tree(data)
---   -- check if buffer is a directory
---   local directory = vim.fn.isdirectory(data.file) == 1
+local function open_nvim_tree(data)
+  -- check if buffer is a directory
+  local directory = vim.fn.isdirectory(data.file) == 1
 
---   if not directory then
---     return
---   end
+  if not directory then
+    return
+  end
 
---   -- create a new, empty buffer
---   vim.cmd.enew()
+  -- create a new, empty buffer
+  vim.cmd.enew()
 
---   -- wipe the directory buffer
---   vim.cmd.bw(data.buf)
+  -- wipe the directory buffer
+  vim.cmd.bw(data.buf)
 
---   -- open the tree
---   require("nvim-tree.api").tree.open()
--- end
+  -- open the tree
+  -- require("nvim-tree.api").tree.open()
+  vim.cmd.CHADopen()
+end
 
--- api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
-
--- Use CHADTree instead
-vim.api.nvim_create_autocmd("StdinReadPre", {
-  pattern = "*",
-  command = "let s:std_in=1",
-})
-vim.api.nvim_create_autocmd("VimEnter", {
-  pattern = "*",
-  command =
-  "if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in') | execute 'CHADopen' | execute 'cd '.argv()[0] | endif",
-})
+api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
 
 -- Do not use smart case in command line mode, extracted from https://vi.stackexchange.com/a/16511/15292.
 api.nvim_create_augroup("dynamic_smartcase", { clear = true })
@@ -148,6 +128,10 @@ api.nvim_create_autocmd("TermOpen", {
   group = api.nvim_create_augroup("term_start", { clear = true }),
   pattern = "*",
   callback = function()
+    -- Do not use number and relative number for terminal inside nvim
+    vim.wo.relativenumber = false
+    vim.wo.number = false
+
     -- Go to insert mode by default to start typing command
     vim.cmd("startinsert")
   end,
@@ -188,7 +172,11 @@ api.nvim_create_autocmd("ColorScheme", {
     vim.api.nvim_set_hl(0, "Cursor2", { fg = "red", bg = "red" })
 
     -- For floating windows border highlight
-    vim.api.nvim_set_hl(0, "FloatBorder", { fg = "LightGreen" })
+    vim.api.nvim_set_hl(0, "FloatBorder", { fg = "LightGreen", bg = "None", bold = true })
+
+    local hl = vim.api.nvim_get_hl(0, { name = "NormalFloat" })
+    -- change the background color of floating window to None, so it blenders better
+    vim.api.nvim_set_hl(0, "NormalFloat", { fg = hl.fg, bg = "None" })
 
     -- highlight for matching parentheses
     vim.api.nvim_set_hl(0, "MatchParen", { bold = true, underline = true })
@@ -199,7 +187,8 @@ api.nvim_create_autocmd("BufEnter", {
   pattern = "*",
   group = api.nvim_create_augroup("auto_close_win", { clear = true }),
   desc = "Quit Nvim if we have only one window, and its filetype match our pattern",
-  callback = function(ev)
+  ---@diagnostic disable-next-line: unused-local
+  callback = function(context)
     local quit_filetypes = { "qf", "vista", "NvimTree", "CHADTree" }
 
     local should_quit = true
@@ -207,9 +196,9 @@ api.nvim_create_autocmd("BufEnter", {
 
     for _, win in pairs(tabwins) do
       local buf = api.nvim_win_get_buf(win)
-      local bf = fn.getbufvar(buf, "&filetype")
+      local buf_type = vim.api.nvim_get_option_value("filetype", { buf = buf })
 
-      if fn.index(quit_filetypes, bf) == -1 then
+      if not vim.tbl_contains(quit_filetypes, buf_type) then
         should_quit = false
       end
     end
@@ -239,9 +228,11 @@ api.nvim_create_autocmd("BufReadPre", {
     local f = ev.file
 
     if fn.getfsize(f) > file_size_limit or fn.getfsize(f) == -2 then
+      vim.o.eventignore = "all"
+
       -- show ruler
       vim.o.ruler = true
-      vim.o.eventignore = "all"
+
       --  turning off relative number helps a lot
       vim.wo.relativenumber = false
       vim.wo.number = false

@@ -18,3 +18,9 @@ conform.formatters.stylua = {
   inherit = false,
   command = "stylua",
 }
+
+conform.formatters.shfmt = {
+  inherit = false,
+  command = "shfmt",
+  args = { "-i", "2", "-ci", "-bn" },
+}
