@@ -85,6 +85,8 @@ local plugin_specs = {
   },
   {
     "stevearc/conform.nvim",
+    event = "BufWritePre",
+    cmd = "ConformInfo",
     config = function()
       require("config.conform")
     end,
@@ -235,7 +237,7 @@ local plugin_specs = {
   },
 
   {
-    "ap/vim-buftabline",
+    "zefei/vim-wintabs",
     event = "BufEnter",
   },
 

@@ -49,6 +49,9 @@ vim.g.vimsyn_embed = "l"
 -- Use English as main language
 vim.cmd([[language en_US.UTF-8]])
 
+-- Think of C Headers for C files
+vim.g.c_syntax_for_h = 1
+
 --- ----------------------------------------------
 --- 		Disable loading certain plugins
 --- ----------------------------------------------
