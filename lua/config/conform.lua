@@ -10,7 +10,8 @@ conform.setup({
 
 	formatters_by_ft = {
 		lua = { "stylua" },
-		c = { "clang-format" },
+		-- c = { "clang-format" },
 		sh = { "shfmt" },
+		-- asm = { "asmfmt" },
 	},
 })
