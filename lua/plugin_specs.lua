@@ -8,7 +8,7 @@ if not vim.uv.fs_stat(lazypath) then
 		"git",
 		"clone",
 		"--filter=blob:none",
-		"https://github.com/folke/lazy.nvim.git",
+		"https://github.com/jake-stewart/lazier.nvim.git",
 		"--branch=stable", -- latest stable release
 		lazypath,
 	})
@@ -57,7 +57,7 @@ local plugin_specs = {
 		end,
 	},
 	-- This takes so much time
-	{ "quangnguyen30192/cmp-nvim-ultisnips", lazy = true },
+	{ "quangnguyen30192/cmp-nvim-ultisnips", lazy = true, pin = true },
 	{ "hrsh7th/cmp-nvim-lsp", lazy = true },
 	{ "hrsh7th/cmp-path", lazy = true },
 	{ "hrsh7th/cmp-buffer", lazy = true },
@@ -147,7 +147,6 @@ local plugin_specs = {
 		ft = { "markdown" },
 	},
 
-	-- A list of colorscheme plugin you may want to try.
 	{ "nvim-tree/nvim-web-devicons", event = "VeryLazy" },
 
 	{
@@ -166,35 +165,6 @@ local plugin_specs = {
 			require("config.nvim-statuscol")
 		end,
 	},
-
-	{
-		"kevinhwang91/nvim-ufo",
-		dependencies = "kevinhwang91/promise-async",
-		event = "VeryLazy",
-		opts = {},
-		init = function()
-			vim.o.foldcolumn = "auto"
-			vim.o.foldlevel = 99 -- Using ufo provider need a large value
-			vim.o.foldlevelstart = 99
-			vim.o.foldnestmax = 0
-			vim.o.foldenable = true
-			vim.o.foldmethod = "indent"
-			vim.opt.fillchars = {
-				fold = " ",
-				foldopen = "",
-				foldsep = " ",
-				foldclose = "",
-				stl = " ",
-				eob = " ",
-			}
-		end,
-		config = function()
-			require("config.nvim_ufo")
-		end,
-	},
-
-	-- Highlight URLs inside vim
-	{ "itchyny/vim-highlighturl", event = "VeryLazy" },
 
 	-- notification plugin
 	{
@@ -243,15 +213,6 @@ local plugin_specs = {
 		config = true,
 	},
 
-	-- {
-	-- 	"sontungexpt/sttusline",
-	-- 	branch = "table_version",
-	-- 	event = "BufEnter",
-	-- 	config = function()
-	-- 		require("config.sttusline")
-	-- 	end,
-	-- },
-
 	{
 		"zefei/vim-wintabs",
 		event = "BufEnter",
@@ -261,15 +222,6 @@ local plugin_specs = {
 	{
 		"dstein64/vim-startuptime",
 		event = "VeryLazy",
-	},
-
-	-- Comment plugin
-	{
-		"tpope/vim-commentary",
-		keys = {
-			{ "gc", mode = "n" },
-			{ "gc", mode = "v" },
-		},
 	},
 
 	-- Show undo history visually
@@ -390,16 +342,6 @@ local plugin_specs = {
 	-- Session management plugin
 	{ "tpope/vim-obsession", cmd = "Obsession" },
 
-	{
-		"folke/zen-mode.nvim",
-		event = "VeryLazy",
-		cmd = "ZenMode",
-		dependencies = { "folke/twilight.nvim" },
-		config = function()
-			require("config.zenmode")
-		end,
-	},
-
 	-- showing keybindings
 	{
 		"folke/which-key.nvim",
@@ -444,22 +386,6 @@ local plugin_specs = {
 	-- show and trim trailing whitespaces
 	{ "jdhao/whitespace.nvim", event = "VeryLazy" },
 
-	-- better file explorer
-	{
-		"ms-jpq/chadtree",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		lazy = true,
-		cmd = "CHADopen",
-		config = function()
-			require("config.chadtree")
-		end,
-	},
-
-	{ -- Cmake integration
-		"cdelledonne/vim-cmake",
-		lazy = true,
-		ft = { "c", "cpp" },
-	},
 	-- Only install these plugins if ctags are installed on the system
 	-- show file tags in vim window
 	{

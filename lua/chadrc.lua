@@ -1,7 +1,7 @@
 local M = {}
 
 M.base46 = {
-	theme = "gruvchad",
+	theme = "doomchad",
 	transparency = false,
 }
 
@@ -55,7 +55,7 @@ M.nvdash = {
 		{ txt = "  Find File", keys = "ff", cmd = "Telescope find_files" },
 		{ txt = "  Recent Files", keys = "fo", cmd = "Telescope oldfiles" },
 		{ txt = "󰈭  Find Word", keys = "fw", cmd = "Telescope live_grep" },
-		{ txt = "󱥚  Themes", keys = "th", cmd = ":lua require('nvchad.themes').open()" },
+		{ txt = "󱥚  Themes", keys = "th", cmd = "Telescope themes" },
 
 		{ txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
 
@@ -72,5 +72,7 @@ M.nvdash = {
 		{ txt = "─", hl = "NvDashFooter", no_gap = true, rep = true },
 	},
 }
+
+M.lsp = { signature = true }
 
 return M
